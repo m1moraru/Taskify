@@ -1,68 +1,66 @@
-// Import dependencies
-require('dotenv').config(); // Load .env variables at the top
+require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
 const passport = require('passport');
+const path = require('path');
 const passportConfig = require('./config/passportConfig');
-const pool = require('./config/db'); // Import configured database pool
+const pool = require('./config/db');
 const userRoutes = require('./routes/usersRoutes');
 const taskRoutes = require('./routes/taskRoutes');
 
 const app = express();
-const PORT = process.env.SERVER_PORT || 3001; // Use .env for port if defined
+const PORT = process.env.SERVER_PORT || 3001;
 
 // Middleware
-app.use(
-  cors({
-    origin: 'http://localhost:3000', // Frontend URL
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    credentials: true, // Allow cookies and other credentials
-    allowedHeaders: [
-      'Content-Type',
-      'Authorization',
-      'Access-Control-Allow-Origin',
-      'Access-Control-Allow-Headers',
-    ],
-  })
-);
+app.use(cors({
+  origin: 'https://taskify-nuog.onrender.com',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  credentials: true,
+}));
 
-// Initialize Passport
 passportConfig(app);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.json()); // Parse JSON payloads
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded payloads
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Configure session
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
-    httpOnly: true, // Security feature to help prevent attacks
-    secure: false,  // Set this to true if using HTTPS
-    maxAge: 3600000, // Cookie expiration time (1 hour)
-  }
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 3600000,
+  },
 }));
 
-// Test database connection
 pool.connect((err) => {
   if (err) {
-    console.error('Error connecting to the database:', err.message);
+    console.error('Database connection error:', err.message);
   } else {
-    console.log('Connected to the database');
+    console.log('Connected to database');
   }
 });
 
-// Routes
+// API routes
 app.use('/api/users', userRoutes);
 app.use('/api/tasks', taskRoutes);
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+// Serve React static files
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Catch-all route for React
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
+// Start server
+app.listen(PORT, () => {
+  console.log(`Server running at https://taskify-nuog.onrender.com`);
+});
+
+
 module.exports = app;
+

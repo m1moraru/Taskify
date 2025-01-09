@@ -1,16 +1,18 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext'; 
+import { AuthContext } from '../../context/AuthContext';
 import '../Login/Login.css';
 
+const API_BASE_URL = 'https://taskify-nuog.onrender.com/api'; // Base URL for the API
+
 const Login = () => {
-  const { login } = useContext(AuthContext); 
+  const { login } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,10 +22,10 @@ const Login = () => {
       return;
     }
 
-    setLoading(true); 
+    setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3001/api/users/login', {
+      const response = await fetch(`${API_BASE_URL}/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -34,19 +36,17 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
-        
         console.log('Login successful:', data);
         setError('');
-        login(data); 
-        navigate('/homepage'); 
+        login(data); // Update user context
+        navigate('/homepage'); // Navigate to homepage
       } else {
-       
         setError(data.message || 'Login failed. Please try again.');
       }
     } catch (error) {
       setError('An error occurred. Please try again.');
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -92,3 +92,4 @@ const Login = () => {
 };
 
 export default Login;
+

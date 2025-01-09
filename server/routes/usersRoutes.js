@@ -7,9 +7,9 @@ router.post('/register', usersController.createUser);
 router.post('/login', usersController.loginUser); 
 
 router.get('/me', ensureAuthenticated, usersController.getMe);
-router.get('/:id', ensureAuthenticated, usersController.getUser);
+router.get('/created_at', ensureAuthenticated, usersController.getUserCreatedAt); // Specific routes first
+router.get('/:id', ensureAuthenticated, usersController.getUser); // Dynamic route last
 router.put('/:id', ensureAuthenticated, usersController.updateUser);
 router.delete('/:id', ensureAuthenticated, usersController.deleteUser);
-router.get('/created_at', ensureAuthenticated, usersController.getUserCreatedAt);
 
 module.exports = router;
