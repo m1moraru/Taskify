@@ -17,7 +17,7 @@ function TaskList() {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/tasks');
+      const response = await axios.get('https://taskify-nuog.onrender.com/api/tasks');
       setTasks(response.data.filter((task) => !task.archived));
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -26,7 +26,7 @@ function TaskList() {
 
   const archiveTask = async (id) => {
     try {
-      await axios.put(`http://localhost:3001/api/tasks/${id}`, { archived: true });
+      await axios.put(`https://taskify-nuog.onrender.com/api/tasks/${id}`, { archived: true });
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     } catch (error) {
       console.error('Error archiving task:', error);
@@ -35,7 +35,7 @@ function TaskList() {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/api/tasks/${id}`);
+      await axios.delete(`https://taskify-nuog.onrender.com/api/tasks/${id}`);
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
     } catch (error) {
       console.error('Error deleting task:', error);
@@ -56,7 +56,7 @@ function TaskList() {
 
   const updateTask = async () => {
     try {
-      const response = await axios.put(`http://localhost:3001/api/tasks/${editingTask}`, updatedTask);
+      const response = await axios.put(`https://taskify-nuog.onrender.com/api/tasks/${editingTask}`, updatedTask);
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
           task.id === editingTask ? { ...task, ...response.data } : task
