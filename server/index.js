@@ -56,9 +56,19 @@ pool.connect((err) => {
   }
 });
 
+// Root route to handle requests to "/"
+app.get('/', (req, res) => {
+  res.send('Welcome to the Taskify API! Available routes: /api/users, /api/tasks');
+});
+
 // Routes
 app.use('/api/users', userRoutes);
 app.use('/api/tasks', taskRoutes);
+
+// Catch-all route for undefined paths
+app.use((req, res, next) => {
+  res.status(404).send('API route not found');
+});
 
 // Start the server
 app.listen(PORT, () => {
