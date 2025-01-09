@@ -9,6 +9,8 @@ import PriorityOverview from '../components/PriorityOverview/PriorityOverview';
 import { AuthContext } from '../context/AuthContext';
 import MobileNav from '../components/MobileNav/MobileNav';
 
+const API_BASE_URL = 'https://taskify-nuog.onrender.com/api'; // Base URL for the API
+
 function Homepage() {
   const { user, logout } = useContext(AuthContext);
   const [activeSection, setActiveSection] = useState('dashboard');
@@ -18,7 +20,7 @@ function Homepage() {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('https://taskify-nuog.onrender.com/api/tasks');
+      const response = await axios.get(`${API_BASE_URL}/tasks`);
       setTasks(response.data.filter((task) => !task.archived));
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -33,7 +35,7 @@ function Homepage() {
 
   const handleTaskSubmit = async (taskData) => {
     try {
-      const response = await axios.post('https://taskify-nuog.onrender.com/api/tasks', taskData);
+      const response = await axios.post(`${API_BASE_URL}/tasks`, taskData);
       if (response.status === 201) {
         fetchTasks();
         setIsCreateTaskOpen(false);
@@ -131,5 +133,6 @@ function Homepage() {
 }
 
 export default Homepage;
+
 
 
