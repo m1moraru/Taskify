@@ -4,6 +4,7 @@ const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
 const passport = require('passport');
+const path = require('path'); // For serving static files
 const passportConfig = require('./config/passportConfig');
 const pool = require('./config/db'); // Import configured database pool
 const userRoutes = require('./routes/usersRoutes');
@@ -15,7 +16,7 @@ const PORT = process.env.SERVER_PORT || 3001; // Use .env for port if defined
 // Middleware
 app.use(
   cors({
-    origin: 'http://localhost:3000', // Frontend URL
+    origin: 'https://taskify-nuog.onrender.com', // Frontend URL on Render
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true, // Allow cookies and other credentials
     allowedHeaders: [
@@ -36,16 +37,18 @@ app.use(express.json()); // Parse JSON payloads
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded payloads
 
 // Configure session
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    httpOnly: true, // Security feature to help prevent attacks
-    secure: false,  // Set this to true if using HTTPS
-    maxAge: 3600000, // Cookie expiration time (1 hour)
-  }
-}));
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      httpOnly: true, // Security feature to help prevent attacks
+      secure: process.env.NODE_ENV === 'production', // Set to true in production
+      maxAge: 3600000, // Cookie expiration time (1 hour)
+    },
+  })
+);
 
 // Test database connection
 pool.connect((err) => {
@@ -56,23 +59,22 @@ pool.connect((err) => {
   }
 });
 
-// Root route to handle requests to "/"
-app.get('/', (req, res) => {
-  res.send('Welcome to the Taskify API! Available routes: /api/users, /api/tasks');
-});
-
-// Routes
+// API Routes
 app.use('/api/users', userRoutes);
 app.use('/api/tasks', taskRoutes);
 
-// Catch-all route for undefined paths
-app.use((req, res, next) => {
-  res.status(404).send('API route not found');
+// Serve React static files
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Catch-all route for React (serves React app for all non-API routes)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on https://taskify-nuog.onrender.com`);
 });
 
 module.exports = app;
+
