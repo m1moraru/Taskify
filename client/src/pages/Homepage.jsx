@@ -18,7 +18,7 @@ function Homepage() {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/api/tasks');
+      const response = await axios.get('https://taskify-nuog.onrender.com/api/tasks');
       setTasks(response.data.filter((task) => !task.archived));
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -33,7 +33,7 @@ function Homepage() {
 
   const handleTaskSubmit = async (taskData) => {
     try {
-      const response = await axios.post('http://localhost:3001/api/tasks', taskData);
+      const response = await axios.post('https://taskify-nuog.onrender.com/api/tasks', taskData);
       if (response.status === 201) {
         fetchTasks();
         setIsCreateTaskOpen(false);
