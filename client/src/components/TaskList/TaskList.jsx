@@ -4,6 +4,8 @@ import './TaskList.css';
 import bin_icon from '../../assets/bin-icon.png';
 import update_icon from '../../assets/update-icon.png';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '/api'; 
+
 function TaskList() {
   const [tasks, setTasks] = useState([]);
   const [editingTask, setEditingTask] = useState(null);
@@ -15,32 +17,32 @@ function TaskList() {
     fetchTasks();
   }, []);
 
-  const fetchTasks = async () => {
-    try {
-      const response = await axios.get('https://taskify-nuog.onrender.com/api/tasks');
-      setTasks(response.data.filter((task) => !task.archived));
-    } catch (error) {
-      console.error('Error fetching tasks:', error);
-    }
-  };
+ const fetchTasks = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/tasks`);
+    setTasks(response.data.filter((task) => !task.archived));
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+  }
+};
 
   const archiveTask = async (id) => {
-    try {
-      await axios.put(`https://taskify-nuog.onrender.com/api/tasks/${id}`, { archived: true });
-      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-    } catch (error) {
-      console.error('Error archiving task:', error);
-    }
-  };
+  try {
+    await axios.put(`${API_BASE_URL}/tasks/${id}`, { archived: true });
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+  } catch (error) {
+    console.error('Error archiving task:', error);
+  }
+};
 
   const deleteTask = async (id) => {
-    try {
-      await axios.delete(`https://taskify-nuog.onrender.com/api/tasks/${id}`);
-      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-    } catch (error) {
-      console.error('Error deleting task:', error);
-    }
-  };
+  try {
+    await axios.delete(`${API_BASE_URL}/tasks/${id}`);
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+  } catch (error) {
+    console.error('Error deleting task:', error);
+  }
+};
 
   const openEditPopup = (task) => {
     setEditingTask(task.id);
@@ -55,18 +57,21 @@ function TaskList() {
   };
 
   const updateTask = async () => {
-    try {
-      const response = await axios.put(`https://taskify-nuog.onrender.com/api/tasks/${editingTask}`, updatedTask);
-      setTasks((prevTasks) =>
-        prevTasks.map((task) =>
-          task.id === editingTask ? { ...task, ...response.data } : task
-        )
-      );
-      closeEditPopup();
-    } catch (error) {
-      console.error('Error updating task:', error);
-    }
-  };
+  try {
+    const response = await axios.put(
+      `${API_BASE_URL}/tasks/${editingTask}`,
+      updatedTask
+    );
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === editingTask ? { ...task, ...response.data } : task
+      )
+    );
+    closeEditPopup();
+  } catch (error) {
+    console.error('Error updating task:', error);
+  }
+};
 
   const handleCardClick = (task) => {
     setViewedTask(task);
