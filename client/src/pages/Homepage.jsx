@@ -9,7 +9,7 @@ import PriorityOverview from '../components/PriorityOverview/PriorityOverview';
 import { AuthContext } from '../context/AuthContext';
 import MobileNav from '../components/MobileNav/MobileNav';
 
-const API_BASE_URL = 'https://taskify-nuog.onrender.com/api'; // Base URL for the API
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '/api'; 
 
 function Homepage() {
   const { user, logout } = useContext(AuthContext);
