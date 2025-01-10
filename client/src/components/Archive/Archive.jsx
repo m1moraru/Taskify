@@ -3,6 +3,8 @@ import axios from 'axios';
 import './Archive.css';
 import bin_icon from '../../assets/bin-icon.png';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '/api';
+
 function Archive() {
   const [archivedTasks, setArchivedTasks] = useState([]);
 
@@ -11,31 +13,31 @@ function Archive() {
   }, []);
 
   const fetchArchivedTasks = async () => {
-    try {
-      const response = await axios.get('https://taskify-nuog.onrender.com/api/tasks');
-      setArchivedTasks(response.data.filter((task) => task.archived)); // Filter archived tasks
-    } catch (error) {
-      console.error('Error fetching archived tasks:', error);
-    }
-  };
+  try {
+    const response = await axios.get(`${API_BASE_URL}/tasks`);
+    setArchivedTasks(response.data.filter((task) => task.archived)); // Filter archived tasks
+  } catch (error) {
+    console.error('Error fetching archived tasks:', error);
+  }
+};
 
   const restoreTask = async (id) => {
-    try {
-      await axios.put(`https://taskify-nuog.onrender.com/api/tasks/${id}`, { archived: false });
-      setArchivedTasks((prevTasks) => prevTasks.filter((task) => task.id !== id)); // Remove from archived list
-    } catch (error) {
-      console.error('Error restoring task:', error);
-    }
-  };
+  try {
+    await axios.put(`${API_BASE_URL}/tasks/${id}`, { archived: false });
+    setArchivedTasks((prevTasks) => prevTasks.filter((task) => task.id !== id)); // Remove from archived list
+  } catch (error) {
+    console.error('Error restoring task:', error);
+  }
+};
 
-  const deleteTask = async (id) => {
-    try {
-      await axios.delete(`https://taskify-nuog.onrender.com/api/tasks/${id}`);
-      setArchivedTasks((prevTasks) => prevTasks.filter((task) => task.id !== id)); // Remove from archived list
-    } catch (error) {
-      console.error('Error deleting task:', error);
-    }
-  };
+ const deleteTask = async (id) => {
+  try {
+    await axios.delete(`${API_BASE_URL}/tasks/${id}`);
+    setArchivedTasks((prevTasks) => prevTasks.filter((task) => task.id !== id)); // Remove from archived list
+  } catch (error) {
+    console.error('Error deleting task:', error);
+  }
+};
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
