@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import '../pages/CSS/Register.css';
 import { useNavigate } from 'react-router-dom';
 
-const API_BASE_URL = 'https://taskify-nuog.onrender.com/api'; // Base URL for the API
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '/api'; 
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState('');
