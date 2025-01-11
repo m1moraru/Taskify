@@ -5,6 +5,9 @@ import App from './App';
 import { AuthProvider } from './context/AuthContext';
 import reportWebVitals from './reportWebVitals';
 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '/api';
+console.log('API_BASE_URL:', API_BASE_URL); 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <AuthProvider>
