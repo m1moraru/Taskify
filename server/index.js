@@ -14,9 +14,17 @@ const PORT = process.env.SERVER_PORT || 3001;
 
 // Middleware for CORS
 app.use(cors({
-  origin: 'https://taskify-nuog.onrender.com', // Allow requests from this frontend
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Supported HTTP methods
-  credentials: true, // Allow cookies and other credentials
+  origin: 'https://taskify-nuog.onrender.com',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
+  credentials: true, 
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'X-Requested-With',
+    'Accept',
+    'Origin',
+    'Access-Control-Allow-Credentials',
+  ],
 }));
 
 // Initialize Passport
