@@ -9,7 +9,7 @@ import PriorityOverview from '../components/PriorityOverview/PriorityOverview';
 import { AuthContext } from '../context/AuthContext';
 import MobileNav from '../components/MobileNav/MobileNav';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || https://taskify-nuog.onrender.com; 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://taskify-nuog.onrender.com';
 console.log('API_BASE_URL:', API_BASE_URL);
 
 function Homepage() {
