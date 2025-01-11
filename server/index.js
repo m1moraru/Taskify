@@ -14,7 +14,7 @@ const PORT = process.env.SERVER_PORT || 3001;
 
 // Middleware for CORS
 app.use(cors({
-  origin: 'https://taskify-nuog.onrender.com',
+  origin: 'https://taskify-ahw9.onrender.com',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], 
   credentials: true, 
   allowedHeaders: [
