@@ -18,6 +18,7 @@ function TaskList() {
   }, []);
 
  const fetchTasks = async () => {
+    console.log('fetchTasks function invoked');
   try {
     console.log(`Fetching tasks from: ${API_BASE_URL}/tasks`);
     const response = await axios.get(`${API_BASE_URL}/tasks`);
