@@ -19,12 +19,15 @@ function TaskList() {
 
  const fetchTasks = async () => {
   try {
+    console.log(`Fetching tasks from: ${API_BASE_URL}/tasks`);
     const response = await axios.get(`${API_BASE_URL}/tasks`);
+    console.log('Fetched tasks:', response.data);
     setTasks(response.data.filter((task) => !task.archived));
   } catch (error) {
     console.error('Error fetching tasks:', error);
   }
 };
+
 
   const archiveTask = async (id) => {
   try {
