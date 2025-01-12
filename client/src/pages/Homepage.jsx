@@ -21,7 +21,7 @@ function Homepage() {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/tasks`);
+      const response = await axios.get(`${API_BASE_URL}/tasks`);
       console.log('Fetched tasks:', response.data);
       setTasks(response.data.filter((task) => !task.archived));
     } catch (error) {
