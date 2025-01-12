@@ -4,7 +4,7 @@ import './TaskList.css';
 import bin_icon from '../../assets/bin-icon.png';
 import update_icon from '../../assets/update-icon.png';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '/api'; 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL; 
 
 function TaskList() {
   const [tasks, setTasks] = useState([]);
