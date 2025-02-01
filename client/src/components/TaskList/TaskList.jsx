@@ -4,7 +4,7 @@ import './TaskList.css';
 import bin_icon from '../../assets/bin-icon.png';
 import update_icon from '../../assets/update-icon.png';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL; 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://taskify-nuog.onrender.com"; 
 
 function TaskList() {
   const [tasks, setTasks] = useState([]);
@@ -19,7 +19,7 @@ function TaskList() {
 
 const fetchTasks = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/api/tasks`);
+    const response = await axios.get(`${API_BASE_URL}/api/tasks`, { withCredentials: true }));
     console.log(response.data);
   } catch (error) {
     console.error('Error fetching tasks:', error);
