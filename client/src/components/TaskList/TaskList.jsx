@@ -19,15 +19,15 @@ function TaskList() {
 
   const fetchTasks = async () => {
     try {
-      console.log("Fetching tasks from:", `${API_BASE_URL}/tasks`);
+      console.log("Fetching tasks from:", `${API_BASE_URL}/api/tasks`);
       
-      const response = await axios.get(`${API_BASE_URL}/tasks`);
+      const response = await axios.get(`${API_BASE_URL}/api/tasks`);
       console.log("Response Data:", response.data);
-  
+
       if (!Array.isArray(response.data)) {
         throw new Error("Invalid response: API did not return an array.");
       }
-  
+
       setTasks(response.data);
     } catch (error) {
       console.error("Error fetching tasks:", error);
@@ -35,21 +35,21 @@ function TaskList() {
   };
 
   const archiveTask = async (id) => {
-  try {
-    await axios.put(`${API_BASE_URL}/tasks/${id}`, { archived: true });
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-  } catch (error) {
-    console.error('Error archiving task:', error);
-  }
+    try {
+      await axios.put(`${API_BASE_URL}/api/tasks/${id}`, { archived: true });
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    } catch (error) {
+      console.error('Error archiving task:', error);
+    }
   };
 
   const deleteTask = async (id) => {
-  try {
-    await axios.delete(`${API_BASE_URL}/tasks/${id}`);
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-  } catch (error) {
-    console.error('Error deleting task:', error);
-  }
+    try {
+      await axios.delete(`${API_BASE_URL}/api/tasks/${id}`);
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
   };
 
   const openEditPopup = (task) => {
@@ -65,21 +65,21 @@ function TaskList() {
   };
 
   const updateTask = async () => {
-  try {
-    const response = await axios.put(
-      `${API_BASE_URL}/tasks/${editingTask}`,
-      updatedTask
-    );
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === editingTask ? { ...task, ...response.data } : task
-      )
-    );
-    closeEditPopup();
-  } catch (error) {
-    console.error('Error updating task:', error);
-  }
-};
+    try {
+      const response = await axios.put(
+        `${API_BASE_URL}/api/tasks/${editingTask}`,
+        updatedTask
+      );
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === editingTask ? { ...task, ...response.data } : task
+        )
+      );
+      closeEditPopup();
+    } catch (error) {
+      console.error('Error updating task:', error);
+    }
+  };
 
   const handleCardClick = (task) => {
     setViewedTask(task);
@@ -205,4 +205,3 @@ function TaskList() {
 }
 
 export default TaskList;
-
