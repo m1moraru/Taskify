@@ -4,7 +4,7 @@ import './TaskList.css';
 import bin_icon from '../../assets/bin-icon.png';
 import update_icon from '../../assets/update-icon.png';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL; 
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://taskify-nuog.onrender.com";
 
 function TaskList() {
   const [tasks, setTasks] = useState([]);
@@ -17,14 +17,22 @@ function TaskList() {
     fetchTasks();
   }, []);
 
-const fetchTasks = async () => {
-  try {
-    const response = await axios.get(`${API_BASE_URL}/api/tasks`);
-    setTasks(response.data);
-  } catch (error) {
-    console.error('Error fetching tasks:', error);
-  }
-};
+  const fetchTasks = async () => {
+    try {
+      console.log("Fetching tasks from:", `${API_BASE_URL}/tasks`);
+      
+      const response = await axios.get(`${API_BASE_URL}/tasks`);
+      console.log("Response Data:", response.data);
+  
+      if (!Array.isArray(response.data)) {
+        throw new Error("Invalid response: API did not return an array.");
+      }
+  
+      setTasks(response.data);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
 
   const archiveTask = async (id) => {
   try {
@@ -33,7 +41,7 @@ const fetchTasks = async () => {
   } catch (error) {
     console.error('Error archiving task:', error);
   }
-};
+  };
 
   const deleteTask = async (id) => {
   try {
@@ -42,7 +50,7 @@ const fetchTasks = async () => {
   } catch (error) {
     console.error('Error deleting task:', error);
   }
-};
+  };
 
   const openEditPopup = (task) => {
     setEditingTask(task.id);
