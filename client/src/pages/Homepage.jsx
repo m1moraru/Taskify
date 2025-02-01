@@ -9,7 +9,7 @@ import PriorityOverview from '../components/PriorityOverview/PriorityOverview';
 import { AuthContext } from '../context/AuthContext';
 import MobileNav from '../components/MobileNav/MobileNav';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const API_BASE_URL = (process.env.REACT_APP_API_BASE_URL || "https://taskify-nuog.onrender.com").replace(/\/$/, "");
 console.log('API_BASE_URL:', API_BASE_URL);
 
 function Homepage() {
@@ -21,11 +21,20 @@ function Homepage() {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/tasks`);
-      console.log('Fetched tasks:', response.data);
+      const url = `${API_BASE_URL}/api/tasks`;
+      console.log("Fetching tasks from:", url);
+      
+      const response = await axios.get(url, { withCredentials: true });
+  
+      console.log("Response Data:", response.data);
+  
+      if (!Array.isArray(response.data)) {
+        throw new Error("Invalid response: API did not return an array.");
+      }
+  
       setTasks(response.data.filter((task) => !task.archived));
     } catch (error) {
-      console.error('Error fetching tasks:', error);
+      console.error("Error fetching tasks:", error.response?.data || error.message);
     }
   };
 
