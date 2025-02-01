@@ -21,7 +21,7 @@ function Homepage() {
 
   const fetchTasks = async () => {
     try {
-      const url = `${API_BASE_URL}/api/tasks`;
+      const url = `${API_BASE_URL}/tasks`;
       console.log("Fetching tasks from:", url);
       
       const response = await axios.get(url, { withCredentials: true });

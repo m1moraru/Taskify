@@ -4,7 +4,8 @@ import './TaskList.css';
 import bin_icon from '../../assets/bin-icon.png';
 import update_icon from '../../assets/update-icon.png';
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL?.replace(/\/$/, "") || "https://taskify-nuog.onrender.com";
+const API_BASE_URL = (process.env.REACT_APP_API_BASE_URL || "https://taskify-nuog.onrender.com/api").replace(/\/$/, "");
+
 
 function TaskList() {
   const [tasks, setTasks] = useState([]);
@@ -17,11 +18,15 @@ function TaskList() {
     fetchTasks();
   }, []);
 
+  const API_BASE_URL = (process.env.REACT_APP_API_BASE_URL || "https://taskify-nuog.onrender.com/api").replace(/\/$/, "");
+
   const fetchTasks = async () => {
     try {
-      console.log("Fetching tasks from:", `${API_BASE_URL}/tasks`);
-      
-      const response = await axios.get(`${API_BASE_URL}/tasks`);
+      const url = `${API_BASE_URL}/tasks`;
+      console.log("Fetching tasks from:", url);
+  
+      const response = await axios.get(url, { withCredentials: true });
+  
       console.log("Response Data:", response.data);
   
       if (!Array.isArray(response.data)) {
@@ -30,9 +35,10 @@ function TaskList() {
   
       setTasks(response.data);
     } catch (error) {
-      console.error("Error fetching tasks:", error);
+      console.error("Error fetching tasks:", error.response?.data || error.message);
     }
- };
+  };
+  
 
   const archiveTask = async (id) => {
   try {
