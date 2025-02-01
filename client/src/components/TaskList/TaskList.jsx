@@ -19,12 +19,13 @@ function TaskList() {
 
 const fetchTasks = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/api/tasks`, { withCredentials: true }));
-    console.log(response.data);
+    const response = await axios.get(`${API_BASE_URL}/api/tasks`, { withCredentials: true });
+    setTasks(response.data);
   } catch (error) {
     console.error('Error fetching tasks:', error);
   }
 };
+
 
 
   const archiveTask = async (id) => {
