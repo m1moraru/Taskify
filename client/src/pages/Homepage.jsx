@@ -7,34 +7,21 @@ import TaskList from '../components/TaskList/TaskList';
 import Archive from '../components/Archive/Archive';
 import PriorityOverview from '../components/PriorityOverview/PriorityOverview';
 import { AuthContext } from '../context/AuthContext';
-import MobileNav from '../components/MobileNav/MobileNav';
-
-const API_BASE_URL = (process.env.REACT_APP_API_BASE_URL || "https://taskify-nuog.onrender.com").replace(/\/$/, "");
-console.log('API_BASE_URL:', API_BASE_URL);
 
 function Homepage() {
   const { user, logout } = useContext(AuthContext);
   const [activeSection, setActiveSection] = useState('dashboard');
   const [isCreateTaskOpen, setIsCreateTaskOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
   const fetchTasks = async () => {
     try {
-      const url = `${API_BASE_URL}/tasks`;
-      console.log("Fetching tasks from:", url);
-      
-      const response = await axios.get(url, { withCredentials: true });
-  
-      console.log("Response Data:", response.data);
-  
-      if (!Array.isArray(response.data)) {
-        throw new Error("Invalid response: API did not return an array.");
-      }
-  
+      const response = await axios.get('http://localhost:3001/api/tasks');
       setTasks(response.data.filter((task) => !task.archived));
     } catch (error) {
-      console.error("Error fetching tasks:", error.response?.data || error.message);
+      console.error('Error fetching tasks:', error);
     }
   };
 
@@ -46,7 +33,7 @@ function Homepage() {
 
   const handleTaskSubmit = async (taskData) => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/tasks`, taskData);
+      const response = await axios.post('http://localhost:3001/api/tasks', taskData);
       if (response.status === 201) {
         fetchTasks();
         setIsCreateTaskOpen(false);
@@ -61,64 +48,58 @@ function Homepage() {
     navigate('/login');
   };
 
+  const closeSidebar = () => {
+    if (isSidebarOpen) {
+      setIsSidebarOpen(false);
+    }
+  };
+
   return (
     <div className="homepage-container">
-      {/* Mobile Navigation */}
-      <MobileNav
-        user={user}
-        activeSection={activeSection}
-        setActiveSection={setActiveSection}
-        setIsCreateTaskOpen={setIsCreateTaskOpen}
-        handleSignOut={handleSignOut}
-      />
+      
+      {/* Dark Gradient Overlay for Blur Effect */}
+      <div className="top-gradient"></div>
 
-      {/* Sidebar (visible on larger screens) */}
-      <div className="sidebar">
+      {/* Burger Menu (Transforms into an "X" when sidebar is open) */}
+      <div className={`burger-menu ${isSidebarOpen ? 'open' : ''}`} onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+  
+      {/* Sidebar */}
+      <div className={`sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <div className="user-section">
           <p>Hello,</p>
-          <p>
-            <strong>{user ? user.first_name : 'Guest'}!</strong>
-          </p>
+          <p><strong>{user ? user.first_name : 'Guest'}!</strong></p>
         </div>
-        <div
-          className={`widget ${activeSection === 'dashboard' ? 'active' : ''}`}
-          onClick={() => setActiveSection('dashboard')}
-        >
+        <div className={`widget ${activeSection === 'dashboard' ? 'active' : ''}`} onClick={() => { setActiveSection('dashboard'); setIsSidebarOpen(false); }}>
           <h3>Dashboard</h3>
           <p>Back to overview page.</p>
         </div>
-        <div
-          className={`widget ${activeSection === 'tasks' ? 'active' : ''}`}
-          onClick={() => setActiveSection('tasks')}
-        >
+        <div className={`widget ${activeSection === 'tasks' ? 'active' : ''}`} onClick={() => { setActiveSection('tasks'); setIsSidebarOpen(false); }}>
           <h3>Tasks</h3>
           <p>View and manage your tasks.</p>
         </div>
-        <div
-          className="widget add-task-widget"
-          onClick={() => setIsCreateTaskOpen(true)}
-        >
+        <div className="widget add-task-widget" onClick={() => setIsCreateTaskOpen(true)}>
           <h3>
             <span className="add-symbol">+</span> Create Task
           </h3>
           <p>Add new tasks to your list.</p>
         </div>
-        <div
-          className={`widget ${activeSection === 'archive' ? 'active' : ''}`}
-          onClick={() => setActiveSection('archive')}
-        >
+        <div className={`widget ${activeSection === 'archive' ? 'active' : ''}`} onClick={() => { setActiveSection('archive'); setIsSidebarOpen(false); }}>
           <h3>Archive</h3>
           <p>Access archived tasks.</p>
         </div>
-        <div className="signout-button-container">
+        <div className="signout-button-container signout">
           <button className="signout-button" onClick={handleSignOut}>
             Sign out
           </button>
         </div>
       </div>
-
+  
       {/* Main Content */}
-      <div className="main-content">
+      <div className={`main-content ${isSidebarOpen ? 'overlay-active' : ''}`}>
         {activeSection === 'dashboard' && (
           <>
             <h1>Welcome to Taskify</h1>
@@ -129,8 +110,7 @@ function Homepage() {
         {activeSection === 'tasks' && <TaskList tasks={tasks} fetchTasks={fetchTasks} />}
         {activeSection === 'archive' && <Archive />}
       </div>
-
-      {/* Create Task Modal */}
+  
       {isCreateTaskOpen && (
         <div className="popup-overlay">
           <div className="popup-content">
@@ -141,9 +121,7 @@ function Homepage() {
       )}
     </div>
   );
+  
 }
 
 export default Homepage;
-
-
-

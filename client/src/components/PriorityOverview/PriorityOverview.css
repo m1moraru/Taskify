@@ -55,3 +55,18 @@
   background-color: #27ae60;
 }
 
+@media screen and (max-width: 48rem) {
+  .priority-overview {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+  }
+
+  .priority-item {
+    height: 50px;
+    width: 85%;
+  }
+}
+

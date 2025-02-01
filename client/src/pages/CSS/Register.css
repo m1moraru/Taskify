@@ -179,5 +179,32 @@
      }
  }
 
+ @media (max-width: 48rem) {
+
+    .loginsignup-container {
+        height: 40.625rem;
+        border: none;
+    }
+
+    .loginsignup-container .loginsignup-fields  {
+        height: 25rem;
+    }
+
+    .loginsignup-container .loginsignup-fields input {
+        height: 3.4375rem;
+    }
+
+    .loginsignup-container button {
+        height: 3.125rem;
+        width: 76%;
+    }
+
+    .loginsignup-container p {
+        font-size: 0.875rem;
+        margin-top: 3.125rem; 
+    }
+}
+ 
+
  
  

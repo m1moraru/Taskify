@@ -33,7 +33,7 @@ const CreateTask = ({ onClose, onSubmit }) => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form-group text-area">
             <label htmlFor="description">Task Description</label>
             <textarea
               id="description"
@@ -44,7 +44,7 @@ const CreateTask = ({ onClose, onSubmit }) => {
             />
           </div>
           <div className="form-row">
-            <div className="form-group">
+            <div className="form-group priority-status">
               <label htmlFor="priority">Priority Level</label>
               <select
                 id="priority"
@@ -56,7 +56,7 @@ const CreateTask = ({ onClose, onSubmit }) => {
                 <option value="High">High</option>
               </select>
             </div>
-            <div className="form-group">
+            <div className="form-group priority-status">
               <label htmlFor="status">Task Status</label>
               <select
                 id="status"

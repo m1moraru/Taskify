@@ -115,34 +115,44 @@ form {
   }
   
   @media (max-width: 48rem) {
+
     #login-cont {
-      width: 24rem;
-      height: 22rem;
+      width: 26rem;
+      height: 35rem;
       padding: 1rem;
       margin-top: -100px;
+      border: none;
     }
   
     #login-cont h2 {
-      font-size: 1.25rem;
+      font-size: 1.6rem;
+      margin-bottom: 0;
     }
   
     form {
+      display: flex;
+      flex-direction: column;
       width: 400px;
-      height: 350px;
-      padding: 1rem;
+      height: 380px;
     }
   
     #login-cont form div {
       height: 4.375rem;
       font-size: 0.875rem;
+      margin: 15px;
     }
   
     #login-cont form div input {
-      height: 2.25rem;
+      height: 3.25rem;
     }
   
     #login-cont form button {
-      height: 2rem;
+      height: 3rem;
+      margin-bottom: -25px;
+    }
+
+    #login-cont .register-link {
+      font-size: 14px;
     }
   }
   
@@ -177,6 +187,8 @@ form {
       height: 1.875rem;
     }
   }
+  
+  
   
   
   
