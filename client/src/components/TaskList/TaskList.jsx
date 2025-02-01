@@ -19,7 +19,7 @@ function TaskList() {
 
 const fetchTasks = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/api/tasks`, { withCredentials: true });
+    const response = await axios.get(`${API_BASE_URL}/api/tasks`);
     setTasks(response.data);
   } catch (error) {
     console.error('Error fetching tasks:', error);
