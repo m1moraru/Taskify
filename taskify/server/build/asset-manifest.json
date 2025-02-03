@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.de6760b9.css",
+    "main.js": "/static/js/main.2112ed73.js",
+    "static/js/488.22c553c1.chunk.js": "/static/js/488.22c553c1.chunk.js",
+    "static/media/update-icon.png": "/static/media/update-icon.e0f6406e393d066e6dae.png",
+    "static/media/taskify-icon.png": "/static/media/taskify-icon.db6a0162fadb606217bc.png",
+    "static/media/bin-icon.png": "/static/media/bin-icon.ad5a17efeebff3b2caa9.png",
+    "index.html": "/index.html",
+    "main.de6760b9.css.map": "/static/css/main.de6760b9.css.map",
+    "main.2112ed73.js.map": "/static/js/main.2112ed73.js.map",
+    "488.22c553c1.chunk.js.map": "/static/js/488.22c553c1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.de6760b9.css",
+    "static/js/main.2112ed73.js"
+  ]
+}
