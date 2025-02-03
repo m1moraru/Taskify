@@ -1,0 +1,537 @@
+/* General container styles */
+.task-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 0.625rem;
+  cursor: pointer;
+}
+
+.task-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-between;
+  background-color: #fff;
+  border: 0.0625rem solid #ddd;
+  border-radius: 0.625rem;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+  width: calc(25% - 1.25rem);
+  min-height: 12.5rem;
+  height: auto;
+  box-sizing: border-box;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  overflow: hidden;
+  padding: 0.625rem;
+}
+
+.task-card .status {
+  margin-top: 0.625rem;
+}
+
+.task-card .status .priority-high {
+  color: red;
+}
+
+.task-card .status .priority-medium {
+  color: orange;
+}
+
+.task-card .status .priority-low {
+  color: green;
+}
+
+.task-card .status p {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 90%;
+  height: 0.75rem;
+  margin: 0;
+  font-size: 0.75rem;
+}
+
+.task-card div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 95%;
+  padding: 0 0.3125rem;
+}
+
+.task-card .task-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.task-card .task-info .deadline {
+  margin-top: 0;
+}
+
+.task-card .task-info .description-container {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  margin-left: -0.3125rem;
+  min-height: 3.75rem;
+  height: auto;
+  cursor: pointer;
+}
+
+.task-card .task-info .description-container p {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(50%);
+  color: black;
+  font-size: 0.8125rem;
+}
+
+.task-card .task-info .title {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  width: 100%;
+}
+
+.task-card .task-info h3 {
+  margin: 0;
+}
+
+.task-card .task-info p {
+  font-size: 0.6875rem;
+  margin-bottom: 0;
+}
+
+.task-card .task-info div {
+  margin-top: 0.625rem;
+}
+
+.task-card:hover {
+  transform: translateY(-0.3125rem);
+  box-shadow: 0 0.5rem 0.75rem rgba(0, 0, 0, 0.2);
+}
+
+.task-card h3 {
+  font-size: 1.125rem;
+  margin-bottom: 0.625rem;
+  color: #333;
+}
+
+.task-card p {
+  font-size: 0.875rem;
+  color: #555;
+  margin: 0.3125rem 0;
+}
+
+.overlay-active {
+  position: relative;
+}
+
+.overlay-active:before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.task-card.edit-mode {
+  position: relative;
+  z-index: 2;
+  background-color: #fff;
+  transform: scale(1.05) !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  padding: 1.25rem;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.task-card select,
+.task-card input[type="date"],
+.task-card input[type="text"],
+.task-card textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.625rem 0;
+  border: 0.0625rem solid #ccc;
+  border-radius: 0.3125rem;
+  font-size: 0.875rem;
+  box-sizing: border-box;
+}
+
+.task-card:not(.edit-mode) {
+  overflow: hidden;
+}
+
+.task-card button {
+  all: unset;
+  color: #454545;
+  cursor: pointer;
+  font-size: 0.875rem;
+  margin-right: 0.625rem;
+  transition: color 0.2s ease-in-out;
+}
+
+.task-card button:hover {
+  color: black;
+}
+
+.task-card .btn-container button .bin-icon {
+  height: 0.9375rem;
+  width: 0.9375rem;
+  cursor: pointer;
+}
+
+.task-card .btn-container button .update-icon {
+  height: 0.8125rem;
+  width: 1.3125rem;
+  cursor: pointer;
+}
+
+.task-card .btn-container {
+  display: flex;
+  height: 1.875rem;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.9375rem;
+  width: 100%;
+  padding: 0.625rem 0;
+  box-sizing: border-box;
+  border-top: 0.00625rem solid #ccc;
+  gap: 1.25rem;
+  cursor: pointer;
+}
+
+.task-card .btn-container .left {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 30%;
+}
+
+.task-card .btn-container .left p {
+  font-size: 0.6875rem;
+}
+
+.task-card .btn-container .right {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+}
+
+.task-card .btn-container .priority {
+  font-size: 0.6875rem;
+}
+
+.task-card .btn-container .archive-btn {
+  font-size: 0.6875rem;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(94, 93, 93, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: #fff;
+  padding: 1.25rem;
+  border-radius: 0.625rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+  width: 25rem;
+  max-width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.popup-content input,
+.popup-content textarea,
+.popup-content select {
+  all: unset;
+  width: 100%;
+  padding: 0.625rem;
+  border: 0.00625rem solid #ccc;
+  border-radius: 0.3125rem;
+  font-size: 1rem;
+}
+
+.popup-content textarea {
+  border: 0.00625rem solid #ccc;
+  width: 100%;
+  height: 4.375rem;
+  padding: 0.625rem 0.625rem;
+}
+
+.popup-content .popup-buttons {
+  display: flex;
+  justify-content: center;
+  justify-content: space-between;
+  margin-top: 1.25rem;
+  width: 100%;
+}
+
+.popup-buttons button {
+  padding: 0.625rem 0.9375rem;
+  border: none;
+  border-radius: 0.3125rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.popup-buttons button:first-child {
+  background-color: #2c3e50;
+  color: #fff;
+}
+
+.popup-buttons button:first-child:hover {
+  background-color: #0056b3;
+}
+
+.popup-buttons button:last-child {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.popup-buttons button:last-child:hover {
+  background-color: #a71d2a;
+}
+
+.view-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(94, 93, 93, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.view-popup-content {
+  background-color: #fff;
+  padding: 1.25rem;
+  border-radius: 0.625rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+  width: 31.25rem;
+  height: 25rem;
+  max-width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.view-popup-content .view-popup-title {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 0.625rem;
+  border-bottom: 0.00625rem solid #ccc;
+}
+
+.view-popup-content .view-popup-description {
+  width: 100%;
+  height: auto;
+  min-height: 6.25rem;
+  padding: 0 0.625rem;
+}
+
+.view-popup-content .view-popup-description p {
+  font-size: 1rem;
+}
+
+.view-popup-content .view-popup-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+  gap: 2.5rem;
+  padding: 0 0.625rem;
+  border-top: 0.00625rem solid #ccc;
+}
+
+.view-popup-content .view-popup-info p {
+  font-size: 0.75rem;
+}
+
+.view-popup-content button {
+  all: unset;
+  height: 1.875rem;
+  width: 3.75rem;
+  align-self: flex-end;
+  margin-right: 1.25rem;
+  font-size: 0.875rem;
+}
+
+
+/* Media query */
+@media screen and (max-width: 48rem) {
+  .task-list-container {
+    flex-direction: column;
+    gap: 0.3125rem;
+    justify-content: center;
+    margin-top: 0.625rem;
+  }
+
+  .task-card {
+    width: 100%;
+    padding: 1.25rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
+    border: 0.0625rem solid #ddd;
+    border-radius: 0.625rem;
+  }
+
+  .task-card h3 {
+    font-size: 1.125rem;
+    margin-bottom: 0.625rem;
+  }
+
+  .task-card p {
+    font-size: 0.875rem;
+  }
+
+  .task-card .status p {
+    font-size: 0.875rem;
+    text-align: right;
+  }
+
+  .task-card .task-info .description-container {
+    min-height: auto;
+    width: 100%;
+    white-space: normal;
+    text-overflow: clip;
+    margin-bottom: 0.9375rem;
+  }
+
+  .task-card .task-info .description-container p {
+    font-size: 0.875rem;
+  }
+
+  .task-card .btn-container {
+    padding-top: 1.5625rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .task-card .btn-container .left {
+    display: flex;
+    justify-content: flex-start;
+    font-size: 1rem;
+  }
+
+  .task-card .btn-container .left p {
+    font-size: 0.9375rem;
+  }
+
+  .task-card .btn-container .right {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 0.9375rem;
+    font-size: 1rem;
+    width: 50%;
+    padding-right: 0;
+  }
+
+  .task-card .btn-container .right button {
+    font-size: 0.9375rem;
+  }
+
+  .task-card .btn-container .right button img {
+    height: 1.4375rem;
+    width: 1.25rem;
+    cursor: pointer;
+  }
+
+  .task-card .btn-container .right button .update-icon {
+    height: 1.25rem;
+    width: 1.6875rem;
+    cursor: pointer;
+  }
+
+  .task-card .btn-container .archive-btn {
+    font-size: 1rem;
+  }
+
+  .popup-content input,
+  .popup-content textarea,
+  .popup-content select {
+    font-size: 1rem;
+    padding: 0.625rem;
+  }
+
+  .popup-buttons button {
+    font-size: 16px;
+    padding: 12px 15px;
+  }
+
+  .view-popup-content .view-popup-title h3 {
+    font-size: 20px;
+  }
+
+  .view-popup-content .view-popup-description p {
+    font-size: 16px;
+  }
+
+  .view-popup-content .view-popup-info p {
+    font-size: 14px;
+  }
+
+  .view-popup-content button {
+    font-size: 16px;
+    height: 35px;
+  }
+
+  .view-popup-content .view-popup-title h3 {
+    font-size: 1.25rem;
+  }
+
+  .view-popup-content .view-popup-description p {
+    font-size: 1rem;
+  }
+
+  .view-popup-content .view-popup-info p {
+    font-size: 0.875rem;
+  }
+
+  .view-popup-content button {
+    font-size: 1rem;
+    height: 2.1875rem;
+  }
+}
