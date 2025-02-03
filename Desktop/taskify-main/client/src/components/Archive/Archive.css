@@ -1,0 +1,144 @@
+.archive-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start; 
+  padding: 1.25rem;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.archive-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: #fff;
+  border: 0.0625rem solid #ddd;
+  border-radius: 0.625rem;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+  width: calc(25% - 1.25rem); 
+  max-width: 20rem; 
+  padding: 1.25rem;
+  box-sizing: border-box;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  overflow: hidden;
+} 
+
+.archive-card .description {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 80%;
+  vertical-align: top;
+}
+
+.archive-card .priority-high {
+  color: red;
+}
+
+.archive-card .priority-medium {
+  color: orange;
+}
+
+.archive-card .priority-low {
+  color: green;
+}
+
+.archive-card .btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.875rem;
+  width: 100%;
+}
+
+.archive-card .btn-container button {
+  all: unset;
+  font-size: 0.875rem;
+}
+
+.archive-card .btn-container button .bin-icon {
+  height: 1.125rem;
+  width: 1.125rem;
+  margin-left: 0.625rem;
+  cursor: pointer;
+}
+
+.archive-card:hover {
+  transform: translateY(-0.3125rem);
+  box-shadow: 0 0.5rem 0.75rem rgba(0, 0, 0, 0.2);
+}
+
+.archive-card h3 {
+  font-size: 1.125rem;
+  margin-bottom: 0.625rem;
+  color: #333;
+}
+
+.archive-card p {
+  font-size: 0.875rem;
+  color: #555;
+  margin: 0.3125rem 0;
+}
+
+.priority-high {
+  color: red;
+  font-weight: bold;
+}
+
+.priority-medium {
+  color: orange;
+  font-weight: bold;
+}
+
+.priority-low {
+  color: green;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 64rem) {
+  .archive-card {
+    width: calc(50% - 1.25rem);
+  }
+}
+
+@media screen and (max-width: 48rem) {
+  .archive-card {
+    width: 100%;
+    max-width: none;
+    margin: 0 auto;
+    padding: 1.25rem 1.875rem;
+  }
+
+  .archive-container {
+    gap: 0.625rem;
+    padding: 0.625rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .archive-card .description {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .archive-card .btn-container {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.625rem;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .archive-card .btn-container .btn-icon {
+    height: 1.25rem;
+    width: 1.25rem;
+  }
+}
+
+  

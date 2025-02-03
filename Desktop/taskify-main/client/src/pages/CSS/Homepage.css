@@ -1,0 +1,321 @@
+.homepage-container {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 15.625rem;
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  box-shadow: 0.125rem 0 0.3125rem rgba(0, 0, 0, 0.1);
+}
+
+.sidebar div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border: solid 0.00625rem whitesmoke;
+  height: 4.375rem;
+  margin-bottom: 0.625rem;
+  padding: 0.3125rem 0.625rem;
+}
+
+.homepage-container .user-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 2.5rem;
+  padding: 1.25rem 0.625rem;
+  margin-bottom: 4.375rem;
+  border: none;
+}
+
+.homepage-container .user-section p {
+  margin: 0.25rem;
+}
+
+.widget {
+  margin-bottom: 1.25rem;
+  padding: 0.625rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.widget:hover {
+  background-color: #34495e;
+}
+
+.widget h3 {
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.widget p {
+  font-size: 0.75rem;
+}
+
+.main-content {
+  margin-left: 18.4375rem;
+  padding: 1.25rem;
+  width: calc(100% - 18.4375rem);
+  overflow-y: auto;
+  border: solid 0.00625rem grey;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: whitesmoke;
+}
+
+.main-content h1 {
+  font-size: 1.75rem;
+  margin-bottom: 0.625rem;
+}
+
+.main-content p {
+  font-size: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.signout-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.625rem;
+  padding-right: 0.625rem;
+  border: none !important;
+}
+
+.signout-button {
+  all: unset;
+  padding: 0.5rem 0.75rem;
+  background-color: #e74c3c;
+  color: white;
+  border-radius: 0.3125rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-family: Arial, sans-serif;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.signout-button:hover {
+  background-color: #c0392b;
+  transform: scale(1.05);
+}
+
+.signout-button:active {
+  background-color: #a93226;
+}
+
+@media (max-width: 64rem) {
+  #navbar {
+    height: 5.625rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: #2c3e50;
+  }
+
+  .burger-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 2.8125rem;
+    height: 1.875rem;
+    cursor: pointer;
+    z-index: 1100;
+    transition: transform 0.3s ease-in-out;
+    margin: 1.25rem 0 0 0.625rem;
+  }
+
+  .burger-menu div {
+    background-color: whitesmoke;
+    height: 0.25rem;
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .burger-menu.open div:nth-child(1) {
+    transform: rotate(45deg) translate(0.3125rem, 0.3125rem);
+    margin-left: 1.25rem;
+  }
+
+  .burger-menu.open div:nth-child(2) {
+    opacity: 0;
+  }
+
+  .burger-menu.open div:nth-child(3) {
+    transform: rotate(-45deg) translate(0.3125rem, -0.3125rem);
+    margin-left: 1.25rem;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 17.5rem;
+    box-shadow: 0.125rem 0 0.3125rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    padding: 6.25rem 1.25rem;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+    background-color: #2c3e50;
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 48rem) {
+
+  .homepage-container {
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .top-gradient {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2.5rem; 
+    background: linear-gradient(to bottom, rgba(44, 62, 80, 0.9), rgba(44, 62, 80, 0)); 
+    backdrop-filter: blur(10px);
+    z-index: 999;
+    pointer-events: none; 
+  }
+
+  .main-content {
+    align-items: flex-start;
+    padding: 8.125rem 2.8125rem;
+  }
+
+  .main-content h1 {
+    margin-left: 1.5625rem;
+    font-size: 1.4375rem;
+  }
+
+  .main-content p {
+    margin-left: 1.5625rem;
+    margin-top: -0.3125rem;
+  }
+
+  #navbar {
+    height: 5.625rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: #2c3e50;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+  }
+
+  .burger-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 2.8125rem;
+    height: 1.875rem;
+    cursor: pointer;
+    z-index: 1100;
+    transition: transform 0.3s ease-in-out;
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+  }
+
+  .burger-menu div {
+    background-color: #2c3e50;
+    height: 0.25rem;
+    width: 100%;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .burger-menu.open div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+    background-color: whitesmoke;
+  }
+
+  .burger-menu.open div:nth-child(2) {
+    opacity: 0;
+  }
+
+  .burger-menu.open div:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+    background-color: whitesmoke;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw; 
+    box-shadow: 0.125rem 0 0.3125rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+    padding: 4rem 15%;
+    background-color: #2c3e50;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .user-section {
+    margin-top: 2rem;
+    text-align: left;
+    color: white;
+    font-size: 1.2rem;
+  }
+
+  .widget {
+    background: none;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border-radius: 0.5rem;
+    text-align: left;
+    cursor: pointer;
+    width: 65%;
+  }
+
+  .signout-button {
+    width: 65%;
+    padding: 0.75rem;
+    text-align: center;
+    background-color: #FF8400;
+    color: black;
+    font-size: 18px;
+    border: none;
+    border-radius: 0.5rem;
+    margin-top: 1rem;
+    cursor: pointer;
+  }
+  .signout-button:hover {
+    background-color: orange;
+  }
+}
+
+
