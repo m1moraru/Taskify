@@ -1,0 +1,200 @@
+#login-cont {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 30rem;
+    height: 31.25rem;
+    padding: 1.25rem;
+    margin-top: -1.25rem;
+    border-radius: 0.625rem;
+    box-sizing: border-box;
+    background-color: #2c3e50;
+    border: solid 0.1px grey;
+}
+  
+#login-cont h2 {
+    font-size: 1.375rem;
+    color: whitesmoke;
+}
+
+  #login-cont p {
+    color: white;
+  }
+  
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 18.75rem;
+    width: 25rem;
+    padding: 1.25rem;
+    margin-top: -1.875rem;
+    box-sizing: border-box;
+}
+  
+  #login-cont form div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 5rem;
+    width: 100%;
+    margin: 0;
+    padding: 0.625rem;
+    font-size: 0.9375rem;
+    box-sizing: border-box;
+  }
+
+  #login-cont form div label {
+    color: white;
+  }
+  
+  #login-cont form div input {
+    all: unset;
+    height: 2.5rem;
+    width: 100%;
+    padding: 0.625rem;
+    box-sizing: border-box;
+    background-color: #2c3e50;
+    color: white;
+    border-bottom: 0.1px solid white;
+  }
+  #login-cont form div input:focus {
+    border-bottom: solid 1.5px white;
+  }
+  #login-cont form div input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    opacity: 1; 
+    transition: opacity 0.3s ease-in-out;
+  }
+  #login-cont form div input:focus::placeholder {
+    opacity: 0;
+  }
+  
+  #login-cont form button {
+    all: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 94%;
+    height: 2.1875rem;
+    border: solid 0.0625rem grey;
+    background-color: #FF8400;
+    margin-top: 1.875rem;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+
+  #login-cont form button:hover {
+    background-color: orange;
+  }
+  
+  .error {
+    color: red;
+    font-size: 0.875rem;
+    margin-bottom: -1.875rem;
+    text-align: center;
+  }
+  
+  .register-link {
+    margin-top: 0.625rem;
+    font-size: 0.875rem;
+    text-align: center;
+  }
+  
+  .register-link a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .register-link a:hover {
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 48rem) {
+
+    #login-cont {
+      width: 26rem;
+      height: 35rem;
+      padding: 1rem;
+      margin-top: -100px;
+      border: none;
+    }
+  
+    #login-cont h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0;
+    }
+  
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 400px;
+      height: 380px;
+    }
+  
+    #login-cont form div {
+      height: 4.375rem;
+      font-size: 0.875rem;
+      margin: 15px;
+    }
+  
+    #login-cont form div input {
+      height: 3.25rem;
+    }
+  
+    #login-cont form button {
+      height: 3rem;
+      margin-bottom: -25px;
+    }
+
+    #login-cont .register-link {
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 30rem) {
+    #login-cont {
+      width: 20rem;
+      height: 20rem;
+      padding: 0.75rem;
+      margin-top: -100px;
+    }
+  
+    #login-cont h2 {
+      font-size: 1.125rem;
+    }
+  
+    form {
+      width: 18rem;
+      height: 15rem;
+      padding: 0.75rem;
+    }
+  
+    #login-cont form div {
+      height: 4rem;
+      font-size: 0.8125rem;
+    }
+  
+    #login-cont form div input {
+      height: 2rem;
+    }
+  
+    #login-cont form button {
+      height: 1.875rem;
+    }
+  }
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  

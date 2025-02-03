@@ -1,0 +1,49 @@
+#home-cnt {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    padding-top: 1.25rem;
+    background-color: #2c3e50;
+    overflow: hidden;
+  }
+  
+  #home-cnt .icon {
+    height: 9.375rem;
+    width: 9.375rem;
+    position: absolute;
+    top: 1.875rem;
+    left: 45%;
+  }
+  
+  @media (max-width: 768px) {
+    #home-cnt {
+      padding-top: 0.625rem;
+    }
+  
+    #home-cnt .icon {
+      height: 7.5rem;
+      width: 7.5rem;
+      top: 1.25rem;
+      left: 40%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    #home-cnt {
+      padding-top: 0.3125rem;
+      height: 90vh;
+    }
+  
+    #home-cnt .icon {
+      height: 6.25rem;
+      width: 6.25rem;
+      top: 1.25rem;
+      left: 35%;
+    }
+  }
+  
+
+  
