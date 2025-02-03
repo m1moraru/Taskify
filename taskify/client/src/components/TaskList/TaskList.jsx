@@ -6,7 +6,6 @@ import update_icon from '../../assets/update-icon.png';
 
 const API_BASE_URL = (process.env.REACT_APP_API_BASE_URL || "https://taskify-nuog.onrender.com/api").replace(/\/$/, "");
 
-
 function TaskList() {
   const [tasks, setTasks] = useState([]);
   const [editingTask, setEditingTask] = useState(null);
@@ -18,44 +17,35 @@ function TaskList() {
     fetchTasks();
   }, []);
 
-  const API_BASE_URL = (process.env.REACT_APP_API_BASE_URL || "https://taskify-nuog.onrender.com/api").replace(/\/$/, "");
-
   const fetchTasks = async () => {
     try {
-      const url = `${API_BASE_URL}/tasks`;
-      console.log("Fetching tasks from:", url);
-  
-      const response = await axios.get(url, { withCredentials: true });
-  
-      console.log("Response Data:", response.data);
-  
-      if (!Array.isArray(response.data)) {
-        throw new Error("Invalid response: API did not return an array.");
+      const response = await axios.get(`${API_BASE_URL}/tasks`, { withCredentials: true });
+      if (Array.isArray(response.data)) {
+        setTasks(response.data);
+      } else {
+        console.error("Invalid response: API did not return an array.");
       }
-  
-      setTasks(response.data);
     } catch (error) {
       console.error("Error fetching tasks:", error.response?.data || error.message);
     }
   };
-  
 
   const archiveTask = async (id) => {
-  try {
-    await axios.put(`${API_BASE_URL}/tasks/${id}`, { archived: true });
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-  } catch (error) {
-    console.error('Error archiving task:', error);
-  }
+    try {
+      await axios.put(`${API_BASE_URL}/tasks/${id}`, { archived: true }, { withCredentials: true });
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    } catch (error) {
+      console.error('Error archiving task:', error);
+    }
   };
 
   const deleteTask = async (id) => {
-  try {
-    await axios.delete(`${API_BASE_URL}/tasks/${id}`);
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
-  } catch (error) {
-    console.error('Error deleting task:', error);
-  }
+    try {
+      await axios.delete(`${API_BASE_URL}/tasks/${id}`, { withCredentials: true });
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    } catch (error) {
+      console.error('Error deleting task:', error);
+    }
   };
 
   const openEditPopup = (task) => {
@@ -71,28 +61,13 @@ function TaskList() {
   };
 
   const updateTask = async () => {
-  try {
-    const response = await axios.put(
-      `${API_BASE_URL}/tasks/${editingTask}`,
-      updatedTask
-    );
-    setTasks((prevTasks) =>
-      prevTasks.map((task) =>
-        task.id === editingTask ? { ...task, ...response.data } : task
-      )
-    );
-    closeEditPopup();
-  } catch (error) {
-    console.error('Error updating task:', error);
-  }
-};
-
-  const handleCardClick = (task) => {
-    setViewedTask(task);
-  };
-
-  const closeViewPopup = () => {
-    setViewedTask(null);
+    try {
+      const response = await axios.put(`${API_BASE_URL}/tasks/${editingTask}`, updatedTask, { withCredentials: true });
+      setTasks((prevTasks) => prevTasks.map((task) => (task.id === editingTask ? { ...task, ...response.data } : task)));
+      closeEditPopup();
+    } catch (error) {
+      console.error('Error updating task:', error);
+    }
   };
 
   return (
@@ -104,41 +79,30 @@ function TaskList() {
         </div>
       ) : (
         tasks.map((task) => (
-          <div className="task-card" key={task.id} onClick={() => handleCardClick(task)}>
+          <div className="task-card" key={task.id}>
             <div>
               <div className="status">
-                <p
-                  className={
-                    task.priority === 'High'
-                      ? 'priority-high'
-                      : task.priority === 'Medium'
-                      ? 'priority-medium'
-                      : 'priority-low'
-                  }
-                >
+                <p className={
+                  task.priority === 'High' ? 'priority-high' :
+                  task.priority === 'Medium' ? 'priority-medium' :
+                  'priority-low'}>
                   {task.priority}
                 </p>
               </div>
               <div className="task-info">
                 <h3>{task.title}</h3>
                 <p className="deadline">Deadline: {task.deadline ? task.deadline.split('T')[0] : 'No deadline set'}</p>
-                <div className="description-container">
-                  <p>{task.description}</p>
-                </div>
+                <p>{task.description}</p>
               </div>
-              <div className="btn-container" onClick={(e) => e.stopPropagation()}>
-                <div className="left">
-                  <p>{task.status}</p>
-                </div>
-                <div className="right">
-                  <button onClick={() => archiveTask(task.id)} className="archive-btn">Archive</button>
-                  <button onClick={() => openEditPopup(task)}>
-                    <img src={update_icon} alt="Update" className="update-icon" />
-                  </button>
-                  <button onClick={() => deleteTask(task.id)}>
-                    <img src={bin_icon} alt="Delete" className="bin-icon" />
-                  </button>
-                </div>
+              <div className="btn-container">
+                <p>{task.status}</p>
+                <button onClick={() => archiveTask(task.id)} className="archive-btn">Archive</button>
+                <button onClick={() => openEditPopup(task)}>
+                  <img src={update_icon} alt="Update" className="update-icon" />
+                </button>
+                <button onClick={() => deleteTask(task.id)}>
+                  <img src={bin_icon} alt="Delete" className="bin-icon" />
+                </button>
               </div>
             </div>
           </div>
@@ -150,7 +114,6 @@ function TaskList() {
           <div className="popup-content">
             <h3>Edit Task</h3>
             <input
-              className="title-edit"
               type="text"
               value={updatedTask.title || ''}
               onChange={(e) => setUpdatedTask({ ...updatedTask, title: e.target.value })}
@@ -172,7 +135,7 @@ function TaskList() {
               onChange={(e) => setUpdatedTask({ ...updatedTask, status: e.target.value })}
             >
               <option value="To-Do">To Do</option>
-              <option value="In_Progress">In Progress</option>
+              <option value="In Progress">In Progress</option>
               <option value="Completed">Completed</option>
             </select>
             <input
@@ -187,28 +150,8 @@ function TaskList() {
           </div>
         </div>
       )}
-
-      {viewedTask && (
-        <div className="view-popup-overlay" onClick={closeViewPopup}>
-          <div className="view-popup-content" onClick={(e) => e.stopPropagation()}>
-            <div className="view-popup-title">
-              <h3>{viewedTask.title}</h3>
-            </div>
-            <div className="view-popup-description">
-              <p>{viewedTask.description}</p>
-            </div>
-            <div className="view-popup-info">
-              <p>{viewedTask.priority}</p>
-              <p>{viewedTask.status}</p>
-              <p>Deadline: {viewedTask.deadline ? viewedTask.deadline.split('T')[0] : 'No deadline set'}</p>
-            </div>
-            <button onClick={closeViewPopup}>Close</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
 
 export default TaskList;
-
